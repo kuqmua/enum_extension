@@ -39,7 +39,7 @@ pub fn derive_enum_extension(input: TokenStream) -> TokenStream {
                 syn::Fields::Unit => quote! { #variant_ident },
             }
         }),
-        _ => panic!("EnumIntoArray only works on enums"),
+        _ => panic!("EnumIntoArray works only on enums"),
     };
     let name = &ast.ident;
     let gen = quote! {
