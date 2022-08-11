@@ -1,17 +1,12 @@
-use proc_macro::TokenStream;
-use quote::quote;
 // use syn;
 
 /// require this
-/// use std::collections::HashMap;
-/// use convert_case::Casing;
-/// use convert_case::Case;
 /// use strum::IntoEnumIterator;
 /// use strum_macros::Display;
 /// use strum_macros::EnumIter;
 
 #[proc_macro_derive(EnumExtension)]
-pub fn derive_enum_extension(input: TokenStream) -> TokenStream {
+pub fn derive_enum_extension(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     //it only supported for enums without values
     let ast: syn::DeriveInput =
         syn::parse(input).expect("derive_enum_extension syn::parse(input) failed");
@@ -27,22 +22,22 @@ pub fn derive_enum_extension(input: TokenStream) -> TokenStream {
                 syn::Fields::Named(fields_named) => {
                     let generated = fields_named.named.into_iter().map(|field| {
                         let field_ident = field.ident;
-                        quote! { #field_ident: Default::default() }
+                        quote::quote! { #field_ident: Default::default() }
                     });
-                    quote! {
+                    quote::quote! {
                        #variant_ident {
                            #(#generated),*
                        }
                     }
                 }
-                syn::Fields::Unnamed(_) => quote! { #variant_ident(Default::default()) },
-                syn::Fields::Unit => quote! { #variant_ident },
+                syn::Fields::Unnamed(_) => quote::quote! { #variant_ident(Default::default()) },
+                syn::Fields::Unit => quote::quote! { #variant_ident },
             }
         }),
         _ => panic!("EnumIntoArray works only on enums"),
     };
     let name = &ast.ident;
-    let gen = quote! {
+    let gen = quote::quote! {
         impl #name {
             #[deny(
                 clippy::indexing_slicing,
@@ -75,6 +70,7 @@ pub fn derive_enum_extension(input: TokenStream) -> TokenStream {
                 clippy::float_arithmetic
             )]
             pub fn into_vec() -> Vec<Self> {
+                use strum::IntoEnumIterator;
                 let mut self_vec = Vec::with_capacity(Self::get_length());
                 for self_variant in Self::iter() {
                     self_vec.push(self_variant);
@@ -87,9 +83,10 @@ pub fn derive_enum_extension(input: TokenStream) -> TokenStream {
                 clippy::integer_arithmetic,
                 clippy::float_arithmetic
             )]
-            pub fn into_string_name_and_variant_hashmap() -> HashMap<String, Self> {
-                let mut variants_hashmap: HashMap<String, Self> =
-                    HashMap::with_capacity(Self::get_length());
+            pub fn into_string_name_and_variant_hashmap() -> std::collections::HashMap<String, Self> {
+                use strum::IntoEnumIterator;
+                let mut variants_hashmap: std::collections::HashMap<String, Self> =
+                    std::collections::HashMap::with_capacity(Self::get_length());
                 for variant in Self::iter() {
                     variants_hashmap.insert(format!("{}", variant), variant);
                 }
@@ -102,6 +99,7 @@ pub fn derive_enum_extension(input: TokenStream) -> TokenStream {
                 clippy::float_arithmetic
             )]
             pub fn into_string_name_and_variant_tuple_vec() -> Vec<(String, Self)> {
+                use strum::IntoEnumIterator;
                 let mut variants_vec = Vec::with_capacity(Self::get_length());
                 for variant in Self::iter() {
                     variants_vec.push((format!("{}", variant), variant));
@@ -121,7 +119,9 @@ pub fn derive_enum_extension(input: TokenStream) -> TokenStream {
                 clippy::float_arithmetic
             )]
             pub fn to_upper_snake_case(&self) -> String {
-                format!("{:?}", self).to_case(Case::Snake).to_uppercase()
+                use convert_case::Casing;
+                use convert_case;
+                format!("{:?}", self).to_case(convert_case::Case::Snake).to_uppercase()
             }
             #[deny(
                 clippy::indexing_slicing,
@@ -130,10 +130,11 @@ pub fn derive_enum_extension(input: TokenStream) -> TokenStream {
                 clippy::float_arithmetic
             )]
             pub fn to_lower_snake_case(&self) -> String {
-                format!("{:?}", self).to_case(Case::Snake).to_lowercase()
+                use convert_case::Casing;
+                use convert_case;
+                format!("{:?}", self).to_case(convert_case::Case::Snake).to_lowercase()
             }
         }
     };
     gen.into()
 }
-
