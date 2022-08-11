@@ -10,7 +10,7 @@ use quote::quote;
 /// use strum_macros::Display;
 /// use strum_macros::EnumIter;
 
-#[proc_macro_derive(EnumExtenstion)]
+#[proc_macro_derive(EnumExtension)]
 pub fn derive_enum_extension(input: TokenStream) -> TokenStream {
     //it only supported for enums without values
     let ast: syn::DeriveInput =
@@ -136,3 +136,4 @@ pub fn derive_enum_extension(input: TokenStream) -> TokenStream {
     };
     gen.into()
 }
+
