@@ -1,10 +1,3 @@
-// use syn;
-
-/// require this
-/// use strum::IntoEnumIterator;
-/// use strum_macros::Display;
-/// use strum_macros::EnumIter;
-
 #[proc_macro_derive(EnumExtension)]
 pub fn derive_enum_extension(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     //it only supported for enums without values
