@@ -1,8 +1,7 @@
 #[proc_macro_derive(EnumExtension)]
 pub fn derive_enum_extension(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     //it only supported for enums without values
-    let ast: syn::DeriveInput =
-        syn::parse(input).expect("derive_enum_extension syn::parse(input) failed");
+    let ast: syn::DeriveInput = syn::parse(input).expect("EnumExtension syn::parse(input) failed");
     //todo to implement into_array() and into_vec - must implement Default for all inner variant types
     let len = match ast.data.clone() {
         syn::Data::Enum(enum_item) => enum_item.variants.len(),
