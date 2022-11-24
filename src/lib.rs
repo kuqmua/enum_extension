@@ -1,3 +1,11 @@
+#![deny(
+    clippy::indexing_slicing,
+    clippy::integer_arithmetic,
+    clippy::unwrap_used,
+    clippy::float_arithmetic
+)]
+#![allow(clippy::too_many_arguments)]
+
 #[proc_macro_derive(EnumExtension)]
 pub fn derive_enum_extension(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     //it only supported for enums without values
