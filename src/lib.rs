@@ -76,12 +76,10 @@ pub fn derive_enum_extension(input: proc_macro::TokenStream) -> proc_macro::Toke
             }
             pub fn to_upper_snake_case(&self) -> String {
                 use convert_case::Casing;
-                use convert_case;
                 format!("{:?}", self).to_case(convert_case::Case::Snake).to_uppercase()
             }
             pub fn to_lower_snake_case(&self) -> String {
                 use convert_case::Casing;
-                use convert_case;
                 format!("{:?}", self).to_case(convert_case::Case::Snake).to_lowercase()
             }
         }
