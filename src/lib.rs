@@ -12,7 +12,7 @@
 /// convert_case = "0.6.0"
 #[proc_macro_derive(EnumExtension)]
 pub fn enum_extension(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
-    proc_macro_helpers::panic_location::panic_location("EnumExtension");
+    proc_macro_helpers::panic_location::panic_location();
     //it only supported for enums without values
     let ast: syn::DeriveInput = syn::parse(input).expect("EnumExtension syn::parse(input) failed");
     //todo to implement into_array() and into_vec - must implement Default for all inner variant types
