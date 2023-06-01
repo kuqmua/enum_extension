@@ -1,6 +1,6 @@
 #![deny(
     clippy::indexing_slicing,
-    // clippy::integer_arithmetic,//detects inside quote!{}
+    // clippy::arithmetic_side_effects,//detects inside quote!{}
     clippy::unwrap_used,
     clippy::float_arithmetic
 )]
