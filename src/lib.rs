@@ -7,7 +7,7 @@
 #![allow(clippy::too_many_arguments)]
 
 ///you need to install this crates to use this macro(check on work was only with this versions)
-/// strum = "0.24.1"
+/// strum = {version = "=0.24.1"}
 /// strum_macros = "0.24.3"
 /// convert_case = "0.6.0"
 #[proc_macro_derive(EnumExtension)]
