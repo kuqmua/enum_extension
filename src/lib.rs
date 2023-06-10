@@ -8,8 +8,8 @@
 
 ///you need to install this crates to use this macro(check on work was only with this versions)
 /// strum = {version = "=0.24.1"}
-/// strum_macros = "=0.24.3"
-/// convert_case = "0.6.0"
+/// strum_macros = {version = "=0.24.3"}
+/// convert_case = {version = "=0.6.0"}
 #[proc_macro_derive(EnumExtension)]
 pub fn enum_extension(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     proc_macro_helpers::panic_location::panic_location();
