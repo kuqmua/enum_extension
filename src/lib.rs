@@ -26,7 +26,7 @@ pub fn enum_extension(input: proc_macro::TokenStream) -> proc_macro::TokenStream
             match v.fields {
                 syn::Fields::Named(fields_named) => {
                     let generated = fields_named.named.into_iter().map(|field| {
-                        let field_ident = field.ident;
+                        let field_ident = field.ident; //todo maybe unwrap_or_else panic?
                         quote::quote! { #field_ident: Default::default() }
                     });
                     quote::quote! {
