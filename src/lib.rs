@@ -77,13 +77,11 @@ pub fn enum_extension(input: proc_macro::TokenStream) -> proc_macro::TokenStream
             }
             //todo - it can be done in compile time
             pub fn to_upper_snake_case(&self) -> String {
-                use convert_case::Casing;
-                format!("{:?}", self).to_case(convert_case::Case::Snake).to_uppercase()
+                convert_case::Casing::to_case(&format!("{:?}", self),convert_case::Case::Snake).to_uppercase()
             }
             //todo - it can be done in compile time
             pub fn to_lower_snake_case(&self) -> String {
-                use convert_case::Casing;
-                format!("{:?}", self).to_case(convert_case::Case::Snake).to_lowercase()
+                convert_case::Casing::to_case(&format!("{:?}", self),convert_case::Case::Snake).to_lowercase()
             }
         }
     };
