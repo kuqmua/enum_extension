@@ -51,26 +51,32 @@ pub fn enum_extension(input: proc_macro::TokenStream) -> proc_macro::TokenStream
                 [ #(#name::#variants),* ]
             }
             pub fn into_vec() -> Vec<Self> {
-                use strum::IntoEnumIterator;
                 let mut self_vec = Vec::with_capacity(Self::get_length());
-                for self_variant in Self::iter() {
+                for self_variant in {
+                    use strum::IntoEnumIterator;
+                    Self::iter()
+                } {
                     self_vec.push(self_variant);
                 }
                 self_vec
             }
             pub fn into_string_name_and_variant_hashmap() -> std::collections::HashMap<String, Self> {
-                use strum::IntoEnumIterator;
                 let mut variants_hashmap: std::collections::HashMap<String, Self> =
                     std::collections::HashMap::with_capacity(Self::get_length());
-                for variant in Self::iter() {
+                for variant in {
+                    use strum::IntoEnumIterator;
+                    Self::iter()
+                } {
                     variants_hashmap.insert(format!("{}", variant), variant);
                 }
                 variants_hashmap
             }
             pub fn into_string_name_and_variant_tuple_vec() -> Vec<(String, Self)> {
-                use strum::IntoEnumIterator;
                 let mut variants_vec = Vec::with_capacity(Self::get_length());
-                for variant in Self::iter() {
+                for variant in {
+                    use strum::IntoEnumIterator;
+                    Self::iter()
+                } {
                     variants_vec.push((format!("{}", variant), variant));
                 }
                 variants_vec
