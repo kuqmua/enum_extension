@@ -91,5 +91,8 @@ pub fn enum_extension(input: proc_macro::TokenStream) -> proc_macro::TokenStream
             }
         }
     };
+    // if name == "" {
+    //     println!("{gen}");   
+    // }
     gen.into()
 }
