@@ -82,12 +82,12 @@ pub fn enum_extension(input: proc_macro::TokenStream) -> proc_macro::TokenStream
                 variants_vec
             }
             //todo - it can be done in compile time
-            pub fn to_upper_snake_case(&self) -> String {
-                convert_case::Casing::to_case(&format!("{:?}", self),convert_case::Case::Snake).to_uppercase()
+            pub fn to_upper_camel_case(&self) -> String {
+                convert_case::Casing::to_case(&format!("{:?}", self),convert_case::Case::UpperCamel)
             }
             //todo - it can be done in compile time
-            pub fn to_lower_snake_case(&self) -> String {
-                convert_case::Casing::to_case(&format!("{:?}", self),convert_case::Case::Snake).to_lowercase()
+            pub fn to_snake_case(&self) -> String {
+                convert_case::Casing::to_case(&format!("{:?}", self),convert_case::Case::Snake)
             }
         }
     };
